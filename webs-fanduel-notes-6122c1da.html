@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fanduel · 常回来看看</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f4f5f7;
+      color: #1e2a3a;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* ——— 主视觉卡片 ——— */
+    .hero-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e6e9ef;
+      transition: box-shadow 0.2s;
+    }
+
+    .hero-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .hero-card h1 {
+      font-size: 2.4rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: #13294b;
+    }
+
+    .hero-card .tagline {
+      font-size: 1.1rem;
+      color: #3f4a5c;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-card p {
+      color: #2c3a4f;
+      max-width: 700px;
+    }
+
+    .hero-card a {
+      color: #1b4a8b;
+      text-decoration: none;
+      border-bottom: 1px solid #b6c9e3;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .hero-card a:hover {
+      color: #0a2c5e;
+      border-bottom-color: #0a2c5e;
+    }
+
+    /* ——— 分区卡片网格 ——— */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .cards-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .info-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.8rem 1.6rem;
+      border: 1px solid #e2e7ee;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.03);
+      transition: box-shadow 0.2s, transform 0.1s;
+    }
+
+    .info-card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+      transform: translateY(-2px);
+    }
+
+    .info-card h2 {
+      font-size: 1.3rem;
+      font-weight: 550;
+      margin-bottom: 0.7rem;
+      color: #1b304f;
+      letter-spacing: -0.01em;
+    }
+
+    .info-card h2 .emoji-deco {
+      margin-right: 6px;
+      font-weight: 400;
+    }
+
+    .info-card p, .info-card ul {
+      color: #2f3d51;
+      font-size: 0.95rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+
+    .info-card li {
+      padding: 0.25rem 0;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .info-card li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: #5982b5;
+      font-weight: 600;
+    }
+
+    .info-card a {
+      color: #1b4a8b;
+      text-decoration: none;
+      border-bottom: 1px solid #c6d5e9;
+      transition: border-color 0.15s;
+    }
+
+    .info-card a:hover {
+      border-bottom-color: #0a2c5e;
+    }
+
+    /* ——— 自然链接段落 ——— */
+    .link-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid #e2e7ee;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .link-section h3 {
+      font-size: 1.15rem;
+      font-weight: 550;
+      margin-bottom: 0.8rem;
+      color: #1b304f;
+    }
+
+    .link-section p {
+      color: #2f3d51;
+      margin-bottom: 0.75rem;
+      max-width: 780px;
+    }
+
+    .link-section a {
+      color: #1b4a8b;
+      text-decoration: none;
+      border-bottom: 1px solid #b6c9e3;
+      transition: border-color 0.15s;
+    }
+
+    .link-section a:hover {
+      border-bottom-color: #0a2c5e;
+    }
+
+    /* ——— 提示 / FAQ 摘要 ——— */
+    .tips-box {
+      background: #f9faff;
+      border: 1px solid #dde4ef;
+      border-radius: 20px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .tips-box h4 {
+      font-size: 1.05rem;
+      font-weight: 550;
+      margin-bottom: 0.6rem;
+      color: #1b304f;
+    }
+
+    .tips-box p, .tips-box li {
+      color: #2f3d51;
+      font-size: 0.93rem;
+    }
+
+    .tips-box ul {
+      list-style: none;
+      padding-left: 0.2rem;
+      margin-top: 0.3rem;
+    }
+
+    .tips-box li {
+      padding: 0.2rem 0 0.2rem 1.2rem;
+      position: relative;
+    }
+
+    .tips-box li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #7c96be;
+    }
+
+    .tips-box a {
+      color: #1b4a8b;
+      text-decoration: none;
+      border-bottom: 1px solid #c6d5e9;
+    }
+
+    .tips-box a:hover {
+      border-bottom-color: #0a2c5e;
+    }
+
+    /* ——— footer ——— */
+    .page-footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #5d6d83;
+      padding: 1.5rem 0 0.5rem;
+      border-top: 1px solid #dce1ea;
+      margin-top: 0.5rem;
+    }
+
+    .page-footer a {
+      color: #3f5d82;
+      text-decoration: none;
+      border-bottom: 1px solid #c6d5e9;
+    }
+
+    .page-footer a:hover {
+      border-bottom-color: #3f5d82;
+    }
+
+    /* ——— 响应式微调 ——— */
+    @media (max-width: 480px) {
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+      .hero-card h1 {
+        font-size: 1.8rem;
+      }
+      .link-section {
+        padding: 1.5rem 1.2rem;
+      }
+      .tips-box {
+        padding: 1.4rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+      <h1>再次回来 · 持续关注</h1>
+      <div class="tagline">整理过的备忘，方便你随时翻阅</div>
+      <p>
+        有些页面值得收藏，也值得在需要时重新打开。如果你曾经留意过 
+        <a href="https://webs-fanduel.com">fanduel</a> 这个站点，却因为各种原因没有仔细浏览，或是想把它放在手边作为参考，那么这份摘要可以帮你更快地找回状态。
+      </p>
+      <p style="margin-top: 0.8rem;">
+        我们整理了主要用途、适宜的使用人群，以及一些值得留意的细节。你可以把它当作一张带有注释的索引卡，方便之后再次回来。
+      </p>
+    </div>
+
+    <!-- 信息卡片区域 -->
+    <div class="cards-grid">
+      <!-- 用途卡片 -->
+      <div class="info-card">
+        <h2><span class="emoji-deco">📌</span>主要用途</h2>
+        <p>
+          <a href="https://webs-fanduel.com">fanduel</a> 围绕体育赛事与互动体验，提供信息聚合、实时数据以及社区讨论空间。用户可以在同一界面中追踪比赛进程、查看统计摘要，并参与围绕赛果的交流。
+        </p>
+        <p style="margin-top: 0.6rem;">
+          平台强调信息的可获取性与更新频率，适合希望在同一位置获取多项赛事信息的用户。
+        </p>
+      </div>
+
+      <!-- 适合人群 -->
+      <div class="info-card">
+        <h2><span class="emoji-deco">👥</span>适合人群</h2>
+        <ul>
+          <li>对体育赛事有持续兴趣，希望集中查看数据的爱好者</li>
+          <li>需要快速浏览比赛进程、不愿在多个页面之间切换的日常用户</li>
+          <li>关注赛事讨论氛围，喜欢参与简短交流的社区型访客</li>
+          <li>偶尔回访、希望页面结构保持清晰简洁的收藏型用户</li>
+        </ul>
+        <p style="margin-top: 0.5rem;">
+          无论你是经常访问，还是隔一段时间再回来，都能在熟悉的布局中找到需要的内容。
+        </p>
+      </div>
+
+      <!-- 场景卡片 -->
+      <div class="info-card">
+        <h2><span class="emoji-deco">⚙️</span>常见使用场景</h2>
+        <ul>
+          <li>比赛日快速查看实时比分与关键数据</li>
+          <li>赛后回顾，对比不同场次的统计摘要</li>
+          <li>在讨论区浏览简评，了解其他用户的视角</li>
+          <li>将 fanduel 添加为书签，作为赛事信息的中转起点</li>
+        </ul>
+        <p style="margin-top: 0.5rem;">
+          这些场景都围绕「信息获取」展开，不需要额外注册或复杂设置。
+        </p>
+      </div>
+    </div>
+
+    <!-- 自然链接段落 -->
+    <div class="link-section">
+      <h3>为什么值得再次收藏</h3>
+      <p>
+        当你在浏览器书签栏中整理链接时，<a href="https://webs-fanduel.com">fanduel</a> 这类页面往往扮演着「轻量信息枢纽」的角色。你不必时刻盯着它，但想在几分钟内了解赛事动态时，它就在那里。
+      </p>
+      <p>
+        我们建议将这一页加入收藏夹，或者记下它的名字。下一次当你想要快速浏览比赛信息、查看讨论摘要，或者只是随便翻翻时，就不必再从头搜索。持续关注一个结构稳定的页面，比每次临时查找要省力得多。
+      </p>
+      <p style="font-size: 0.9rem; color: #506481; margin-top: 0.4rem;">
+        * 页面内容与数据更新频率由站点自身维护，建议每隔一段时间回来确认最新情况。
+      </p>
+    </div>
+
+    <!-- 提示 / FAQ 摘要 -->
+    <div class="tips-box">
+      <h4>📋 一些小提示</h4>
+      <ul>
+        <li>如果你之前访问过 fanduel 但觉得信息太多，不妨只关注比分或讨论区，其余部分可以慢慢熟悉。</li>
+        <li>书签名称可以改为「fanduel · 赛事信息」，方便在收藏栏中快速定位。</li>
+        <li>移动端浏览时页面会自适应，横竖屏都可以正常阅读核心内容。</li>
+        <li>如果长时间未访问，建议先确认页面版本是否有调整，部分模块位置可能优化过。</li>
+      </ul>
+      <p style="margin-top: 0.6rem;">
+        更多细节可以直接在 <a href="https://webs-fanduel.com">fanduel</a> 站内查看。常回来，慢慢看。
+      </p>
+    </div>
+
+    <!-- footer -->
+    <div class="page-footer">
+      <p>这份备忘基于公开信息整理，仅供个人参考。具体内容以 <a href="https://webs-fanduel.com">fanduel</a> 站内为准。</p>
+    </div>
+
+  </div>
+</body>
+</html>
